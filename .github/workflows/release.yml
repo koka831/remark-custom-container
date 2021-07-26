@@ -1,0 +1,23 @@
+name: publish package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    name: release npm package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          scope: '@my-hello-lib'
+      - name: test
+        run: npm run test
+      - name: publish
+        run: npm publish
+        env:
+          NPMJS_AUTH_TOKEN: ${{ secrets.NPMJS_AUTH_TOKEN }}
