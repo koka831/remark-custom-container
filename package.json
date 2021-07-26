@@ -7,6 +7,10 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:koka831/remark-custom-container.git"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "run-p build:*",
