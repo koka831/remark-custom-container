@@ -1,6 +1,6 @@
 {
   "name": "remark-custom-container",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "remark parser plugin for custom directive in markdown",
   "author": "koka831",
   "license": "MIT",
