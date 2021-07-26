@@ -1,6 +1,6 @@
 # remark-custom-container
 
-[remarkjs][remark] parser plugin for custom directive (compatible with new parser in remark. see [#536][536])
+[remarkjs][remarkjs] parser plugin for custom directive (compatible with new parser in remark. see [#536][536])
 NOTE: This plugin is highly inspired by [vuepress-plugin-container][vuepress-plugin-container].
 
 ## Syntax
