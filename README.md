@@ -59,7 +59,6 @@ use(container, {
 ### Milestone
 
 - [ ] custom container in container
-- [ ] 
 
 remarkjs: https://github.com/remarkjs/remark
 536: https://github.com/remarkjs/remark/pull/536
