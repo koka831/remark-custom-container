@@ -60,6 +60,6 @@ use(container, {
 
 - [ ] custom container in container
 
-remarkjs: https://github.com/remarkjs/remark
-536: https://github.com/remarkjs/remark/pull/536
-vuepress-plugin-container: https://github.com/vuepress/vuepress-community/tree/main/packages/vuepress-plugin-container
+[remarkjs]: https://github.com/remarkjs/remark
+[536]: https://github.com/remarkjs/remark/pull/536
+[vuepress-plugin-container]: https://github.com/vuepress/vuepress-community/tree/main/packages/vuepress-plugin-container
