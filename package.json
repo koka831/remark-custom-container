@@ -1,10 +1,10 @@
 {
   "name": "remark-custom-container",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "remark parser plugin for custom directive in markdown",
   "author": "koka831",
   "license": "MIT",
-  "main": "dist/index.js",
+  "export": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "repository": {
