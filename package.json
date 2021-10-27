@@ -16,7 +16,7 @@
     "build": "run-p build:*",
     "build:commonjs": "tsc",
     "build:esm": "tsc -p tsconfig.esm.json",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "lint": "eslint src"
   },
   "files": [
