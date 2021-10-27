@@ -3,6 +3,8 @@
 [remarkjs][remarkjs] parser plugin for custom directive (compatible with new parser in remark. see [#536][536])
 NOTE: This plugin is highly inspired by [vuepress-plugin-container][vuepress-plugin-container].
 
+This package is ESM only: Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 ## Syntax
 
 Container described with `:::[space]{class name}[space]{container title}` and `:::`.

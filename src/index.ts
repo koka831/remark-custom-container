@@ -1,11 +1,22 @@
-import { Settings, Processor, Transformer } from "unified";
+import { Plugin, Transformer } from "unified";
 import type { Node, Literal, Parent } from "unist";
-import visit from "unist-util-visit";
+import { visit } from "unist-util-visit";
 
 export const REGEX_CUSTOM_CONTAINER =
   /:::\s*(\w+)\s*(.*?)[\n\r]([^]*)[\n\r]\s*:::/;
 
-const DEFAULT_SETTINGS: Settings = {
+interface CustomContainerOptions {
+  /**
+   * @defaultValue "remark-container"
+   */
+  className?: string;
+  /**
+   * @defaultValue "div"
+   */
+  containerTag?: string;
+}
+
+const DEFAULT_SETTINGS: CustomContainerOptions = {
   className: "remark-container",
   containerTag: "div",
 };
@@ -14,7 +25,9 @@ const isLiteralNode = (node: Node): node is Literal => {
   return "value" in node;
 };
 
-function plugin(this: Processor<Settings>, options?: Settings): Transformer {
+export const plugin: Plugin<[CustomContainerOptions?]> = (
+  options?: CustomContainerOptions
+): Transformer => {
   const settings = Object.assign({}, DEFAULT_SETTINGS, options);
 
   const transformer: Transformer = (tree: Node): void => {
@@ -64,6 +77,6 @@ function plugin(this: Processor<Settings>, options?: Settings): Transformer {
   };
 
   return transformer;
-}
+};
 
 export default plugin;

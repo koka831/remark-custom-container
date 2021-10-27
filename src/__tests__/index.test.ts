@@ -1,4 +1,4 @@
-import remark from "remark";
+import { remark } from "remark";
 import { Processor } from "unified";
 import type { VFileCompatible } from "vfile";
 import gfm from "remark-gfm";
@@ -9,12 +9,12 @@ import container, { REGEX_CUSTOM_CONTAINER } from "..";
 
 const compiler: Processor = remark()
   .use(gfm)
-  .use(container)
+  .use(container, { className: "remark-container" })
   .use(remark2rehype)
   .use(stringify);
 
 const process = async (contents: VFileCompatible): Promise<VFileCompatible> => {
-  return compiler.process(contents).then((file) => file.contents);
+  return compiler.process(contents).then((file) => file.value);
 };
 
 describe("remark-container", () => {
