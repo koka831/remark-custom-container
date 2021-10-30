@@ -3,7 +3,7 @@ import type { Node, Literal, Parent } from "unist";
 import { visit } from "unist-util-visit";
 
 export const REGEX_CUSTOM_CONTAINER =
-  /:::\s*(\w+)\s*(.*?)[\n\r]([^]*)[\n\r]\s*:::/;
+  /^\s*:::\s*(\w+)\s*(.*?)[\n\r]([\s\S]+?)\s*:::\s*?/;
 
 interface CustomContainerOptions {
   /**
