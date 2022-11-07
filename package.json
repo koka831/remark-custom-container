@@ -4,6 +4,7 @@
   "description": "remark parser plugin for custom directive in markdown",
   "author": "koka831",
   "license": "MIT",
+  "type": "module",
   "export": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
