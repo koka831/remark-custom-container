@@ -1,6 +1,7 @@
-import { Plugin, Transformer } from "unified";
-import type { Node, Literal, Parent } from "unist";
 import { visit } from "unist-util-visit";
+
+import type { Plugin, Transformer } from "unified";
+import type { Node, Literal, Parent } from "unist";
 
 export const REGEX_CUSTOM_CONTAINER =
   /^\s*:::\s*(\w+)\s*(.*?)[\n\r]([\s\S]+?)\s*:::\s*?/;
