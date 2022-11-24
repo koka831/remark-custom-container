@@ -116,32 +116,32 @@ rest element`;
     expect(await process(input)).toBe(expected);
   });
 
-  // it("interprets children contains html", async () => {
-  //   const input = `
-  // ::: info
+  it("interprets children contains html", async () => {
+    const input = `
+::: info
 
-  // Lorem<br />ipsum.
+Lorem<br />ipsum.
 
-  // ::hr{.red}
+::hr{.red}
 
-  // sample
-  // <div>foo</div>
+sample
+<div>foo</div>
 
-  // A :i[lovely] language know as :abbr[HTML]{title="HyperText Markup Language"}.
+A :i[lovely] language know as :abbr[HTML]{title="HyperText Markup Language"}.
 
-  // \`undefined\` is inline code block.
+\`undefined\` is inline code block.
 
-  // :::
-  // `;
-  //   const expected = `
-  // <div class="remark-container info">
-  // <p>Lorem<br />ipsum.</p>
-  // <p>::hr{.red}</p>
-  // <p>sample</p>
-  // <div>foo</div>
-  // <p>A :i[lovely] language know as :abbr[HTML]{title="HyperText Markup Language"}.</p>
-  // <p><code>undefined</code> is inline code block.</p>
-  // </div>`.replace(/\n/g, "");
-  //   expect(await process(input)).toBe(expected);
-  // });
+:::
+  `;
+    const expected = `
+<div class="remark-container info">
+<p>Lorem<br />ipsum.</p>
+<p>::hr{.red}</p>
+<p>sample</p>
+<div>foo</div>
+<p>A :i[lovely] language know as :abbr[HTML]{title="HyperText Markup Language"}.</p>
+<p><code>undefined</code> is inline code block.</p>
+</div>`.replace(/\n/g, "");
+    expect(await process(input)).toBe(expected);
+  });
 });
