@@ -32,19 +32,6 @@ const isParagraph = (node: Node): node is Paragraph => {
   return "paragraph" === node.type;
 };
 
-// TODO
-// const isCustomDirective = (node: Node): Literal | undefined => {
-//   if (!isParagraph(node)) return;
-//   const elem = node.children[0];
-
-//   if (
-//     isLiteralNode(elem) &&
-//     !!(elem.value.match(REGEX_BEGIN) || elem.value.match(REGEX_END))
-//   ) {
-//     return elem;
-//   }
-// };
-
 export const plugin: Plugin<[CustomContainerOptions?]> = (
   options?: CustomContainerOptions
 ): Transformer => {
