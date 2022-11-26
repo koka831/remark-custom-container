@@ -1,7 +1,9 @@
 # remark-custom-container
 
 [remarkjs][remarkjs] parser plugin for custom directive (compatible with new parser in remark. see [#536][536])
-NOTE: This plugin is highly inspired by [vuepress-plugin-container][vuepress-plugin-container].
+
+> **Note**
+> This plugin is highly inspired by [vuepress-plugin-container][vuepress-plugin-container].
 
 This package is ESM only: Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
@@ -13,7 +15,9 @@ example:
 
 ```markdown
 ::: className Custom Title
+
 Container Body
+
 :::
 ```
 
@@ -57,10 +61,6 @@ use(container, {
   containerTag: string // default to "div"
 })
 ```
-
-### Milestone
-
-- [ ] custom container in container
 
 [remarkjs]: https://github.com/remarkjs/remark
 [536]: https://github.com/remarkjs/remark/pull/536
