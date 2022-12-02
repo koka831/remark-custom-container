@@ -3,12 +3,12 @@ import { visit } from "unist-util-visit";
 import type { Plugin, Transformer } from "unified";
 import type { Node, Literal, Parent } from "unist";
 import type { Paragraph } from "mdast";
-import { Data } from "vfile";
+import type { Data } from "vfile";
 
 export const REGEX_BEGIN = /^\s*:::\s*(\w+)\s*(.*)?/;
 export const REGEX_END = /^\s*:::$/;
 
-interface CustomContainerOptions {
+export interface CustomContainerOptions {
   /**
    * @defaultValue "remark-container"
    */
@@ -17,11 +17,21 @@ interface CustomContainerOptions {
    * @defaultValue "div"
    */
   containerTag?: string;
+  /**
+   * @defaultValue {className: string[]}
+   */
+  titleElement?: Record<string, unknown> | null;
+  /**
+   * @defaultValue undefined
+   */
+  additionalProperties?: (className: string, title: string) => Record<string, unknown>;
 }
 
 const DEFAULT_SETTINGS: CustomContainerOptions = {
   className: "remark-container",
   containerTag: "div",
+  titleElement: {},
+  additionalProperties: undefined,
 };
 
 const isLiteralNode = (node: Node): node is Literal => {
@@ -40,8 +50,15 @@ export const plugin: Plugin<[CustomContainerOptions?]> = (
   // Constructs `Parent` node of custom directive which contains given children.
   const constructContainer = (
     children: Node<Data>[],
-    className: string
+    className: string,
+    title?: string,
   ): Parent => {
+    let properties: Record<string, unknown> | undefined;
+
+    if (settings.additionalProperties) {
+      properties = settings.additionalProperties(className, title ?? "");
+    }
+
     return {
       type: "container",
       children,
@@ -49,6 +66,7 @@ export const plugin: Plugin<[CustomContainerOptions?]> = (
         hName: settings.containerTag,
         hProperties: {
           className: [settings.className, className.toLowerCase()],
+          ...(properties && { ...properties }),
         },
       },
     };
@@ -60,7 +78,10 @@ export const plugin: Plugin<[CustomContainerOptions?]> = (
       children: [{ type: "text", value: title }],
       data: {
         hName: "div",
-        hProperties: { className: [`${settings.className}__title`] },
+        hProperties: { 
+          className: [`${settings.className}__title`],
+          ...(settings.titleElement && { ...settings.titleElement }),
+        },
       },
     };
   };
@@ -107,13 +128,15 @@ export const plugin: Plugin<[CustomContainerOptions?]> = (
             beginIndex + 1,
             innerIndex
           );
-          if (title?.length > 0) {
+          // if the title exists and the settings.titleElement is not null, then construct the title div element
+          if (title?.length && settings.titleElement !== null) {
             containerChildren.splice(0, 0, constructTitle(title));
           }
 
           const container = constructContainer(
             containerChildren,
-            type.toLowerCase()
+            type.toLowerCase(),
+            title,
           );
 
           children.push(container);

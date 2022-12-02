@@ -58,22 +58,70 @@ import remark from "remark";
 import remark2rehype from "remark-rehype";
 import stringify from "rehype-stringify";
 
-import container from "remark-custom-container"
+import container from "remark-custom-container";
 
 const html = await remark()
   .use(container)
   .use(remark2rehype)
-  .use(stringify)
+  .use(stringify);
 ```
 
 ## Options
 
 ```javascript
 use(container, {
-  className: string, // default to "remark-container",
-  containerTag: string // default to "div"
+  className: string, // optional, default to "remark-container",
+  containerTag: string, // optional, default to "div"
+  titleElement: Record<string, unknown> | null, // optional, default to { className: string[] }
+  additionalProperties: (className: string, title: string) => Record<string, unknown>, // optional, default to undefined
 })
 ```
+
+**`className`** is an option to provide custom className other than `remark-container`.
+
+**`containerTag`** is an option to provide custom HTML tag for the container other than `div`.
+
+**`titleElement`** is an option to construct custom _inner title div element_. The default is pre-defined `{ className: string[] }`, so the plugin is going to add an _inner title div element_ as a default. You can provide an object in order to set additional properties for the _inner title div element_. If you set `null`, the plugin is going to remove the _inner title div element_ like below.
+
+```html
+<div class="remark-container className">
+  Container Body
+</div>
+```
+
+**`additionalProperties`** is an option to set additional properties for the custom container. It is a callback function that takes the `className` and the `title` as arguments and returns the object which is going to be used for adding additional properties into the container.
+
+example:
+
+```markdown
+::: warning My Custom Title
+
+my paragraph
+
+:::
+```
+
+```javascript
+use(container, {
+  className: "remark-custom-classname",
+  containerTag: "article",
+  titleElement: null,
+  additionalProperties: (className, title) => {
+    title,
+    ["data-type"]: className.toLowerCase(),
+  }
+})
+```
+
+is going to produce the container below:
+
+```html
+<article class="remark-custom-classname warning" title="My Custom Title" data-type="warning">
+  <p>my paragraph</p>
+</article>
+```
+
+**Note :** The `containerTag` is not prefered to be a `span` or similar, if there is an inner title `div` element. This may cause a problem because of a `div` element under a `span` element.
 
 [remarkjs]: https://github.com/remarkjs/remark
 [536]: https://github.com/remarkjs/remark/pull/536
