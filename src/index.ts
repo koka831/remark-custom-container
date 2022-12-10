@@ -24,7 +24,7 @@ export interface CustomContainerOptions {
   /**
    * @defaultValue undefined
    */
-  additionalProperties?: (className: string, title: string) => Record<string, unknown>;
+  additionalProperties?: (className?: string, title?: string) => Record<string, unknown>;
 }
 
 const DEFAULT_SETTINGS: CustomContainerOptions = {

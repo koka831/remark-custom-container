@@ -10,7 +10,8 @@ import plugin, { type CustomContainerOptions } from "..";
 const compiler: Processor = remark()
   .use(gfm)
   .use(plugin, {
-    additionalProperties: (className, title) => {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    additionalProperties: () => {}
   } as CustomContainerOptions)
   // to check if it handles HTML in markdown
   .use(remark2rehype, { allowDangerousHtml: true })
@@ -21,7 +22,7 @@ const process = async (contents: VFileCompatible): Promise<VFileCompatible> => {
 };
 
 describe("Options for remark-custom-container", () => {
-  it("the option additionalProperties (empty object) is processed", async () => {
+  it("the option additionalProperties (empty function returns empty object) is processed", async () => {
     const input = `
 ::: warning My Custom Title
 
@@ -37,7 +38,7 @@ markdown content
     expect(await process(input)).toBe(expected);
   });
 
-  it("the option additionalProperties (empty object) is processed when the title is not provided in markdown", async () => {
+  it("the option additionalProperties (empty function returns empty object) is processed when the title is not provided in markdown", async () => {
     const input = `
 ::: warning
 

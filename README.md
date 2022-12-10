@@ -73,7 +73,7 @@ use(container, {
   className: string, // optional, default to "remark-container",
   containerTag: string, // optional, default to "div"
   titleElement: Record<string, unknown> | null, // optional, default to { className: string[] }
-  additionalProperties: (className: string, title: string) => Record<string, unknown>, // optional, default to undefined
+  additionalProperties: (className?: string, title?: string) => Record<string, unknown>, // optional, default to undefined
 })
 ```
 
@@ -89,7 +89,7 @@ use(container, {
 </div>
 ```
 
-**`additionalProperties`** is an option to set additional properties for the custom container. It is a callback function that takes the `className` and the `title` as arguments and returns the object which is going to be used for adding additional properties into the container.
+**`additionalProperties`** is an option to set additional properties for the custom container. It is a callback function that takes the `className` and the `title` as optional arguments and returns the object which is going to be used for adding additional properties into the container.
 
 example:
 
@@ -108,7 +108,7 @@ use(container, {
   titleElement: null,
   additionalProperties: (className, title) => {
     title,
-    ["data-type"]: className.toLowerCase(),
+    ["data-type"]: className?.toLowerCase(),
   }
 })
 ```

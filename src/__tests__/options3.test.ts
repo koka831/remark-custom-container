@@ -16,7 +16,7 @@ const compiler: Processor = remark()
     additionalProperties: (className, title) => { 
       return  {
         ["data-title"]: title,
-        ["data-type"]: className.toLowerCase(),
+        ["data-type"]: className?.toLowerCase(),
       }
     } 
   } as CustomContainerOptions)
