@@ -5,13 +5,11 @@ import gfm from "remark-gfm";
 import remark2rehype from "remark-rehype";
 import stringify from "rehype-stringify";
 
-import plugin, { type CustomContainerOptions } from "..";
+import plugin from "..";
 
 const compiler: Processor = remark()
   .use(gfm)
-  .use(plugin, {
-    additionalProperties: (className, title) => {}
-  } as CustomContainerOptions)
+  .use(plugin)
   // to check if it handles HTML in markdown
   .use(remark2rehype, { allowDangerousHtml: true })
   .use(stringify, { allowDangerousHtml: true });
@@ -21,7 +19,7 @@ const process = async (contents: VFileCompatible): Promise<VFileCompatible> => {
 };
 
 describe("Options for remark-custom-container", () => {
-  it("the option additionalProperties (empty object) is processed", async () => {
+  it("processed without any option", async () => {
     const input = `
 ::: warning My Custom Title
 
@@ -37,7 +35,7 @@ markdown content
     expect(await process(input)).toBe(expected);
   });
 
-  it("the option additionalProperties (empty object) is processed when the title is not provided in markdown", async () => {
+  it("processed without any option; and when the title is not provided in markdown", async () => {
     const input = `
 ::: warning
 
